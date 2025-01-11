@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, redirect
 import requests
 from bs4 import BeautifulSoup
 import os
@@ -27,7 +27,6 @@ def get_download_links(url):
         print(f"Error fetching links: {e}")
         return []
 
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -39,13 +38,8 @@ def download():
     if not links:
         return "No valid download links found. Please check the URL and try again."
 
-    # Write links to a text file
-    file_path = "download_links.txt"
-    with open(file_path, 'w') as f:
-        for link in links:
-            f.write(link + '\n')
-
-    return send_file(file_path, as_attachment=True)
+    # Redirect to the first downloadable link
+    return redirect(links[0])
 
 if __name__ == '__main__':
     import os
