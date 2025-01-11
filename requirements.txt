@@ -2,3 +2,6 @@ flask
 requests
 beautifulsoup4
 gunicorn
+instaloader
+requests
+yt_dlp
